@@ -2,11 +2,14 @@ package org.codingfactory;
 
 import java.util.Scanner;
 
+
 public class Main {
+
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String choice = new String("");
-        while (choice != "1") {
+        while (!choice.equals("1")) {
             System.out.println("----Menu----\n 1: Play \n 2: Rules \n 3: Quit");
             choice = scanner.next();
 
@@ -26,9 +29,29 @@ public class Main {
                 System.exit(0);
                 break;
             default:
-                System.out.println("Choix incorrect");
+                System.out.println("Incorrect choice");
                 break;
         }
         }
+        int playerNumber = 0;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                System.out.println("How many players do you want ?");
+                playerNumber = scanner.nextInt();
+                if (playerNumber >= 2 && playerNumber <= 4) {
+                    validInput = true;
+                } else {
+                    System.out.println("Please enter a number between 2 and 4.");
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next();
+            }
+        }
+
+        Game game = new Game(playerNumber);
+        game.displayBoard();
+        scanner.close();
     }
 }

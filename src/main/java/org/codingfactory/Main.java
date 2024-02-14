@@ -17,7 +17,11 @@ public class Main {
 
             case "1":
                 System.out.println("Play");
-                //TODO: create a new game and display it
+                System.out.println("Veuillez entrez le pseudo du premier joueur:");
+                String Pseudo1 = scanner.next();
+                System.out.println("Veuillez entrez le pseudo du deuxième joueur:");
+                String Pseudo2 = scanner.next();
+                System.out.println("Bienvenue " + Pseudo1 + " Bienvenue aussi " + Pseudo2);
                 break;
 
             case "2":

@@ -13,32 +13,40 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String choice = new String("");
         while (!choice.equals("1")) {
-            System.out.println("----Menu----\n 1: Play \n 2: Rules \n 3: Quit");
+            System.out.println("----Menu----\n 1: Play \n 2: Rules \n 3: ScoreBoard \n 4: Quit");
             choice = scanner.next();
 
             switch(choice) {
 
-            case "1":
-                System.out.println("Play");
-                System.out.println("Veuillez entrez le pseudo du premier joueur:");
-                String Pseudo1 = scanner.next();
-                System.out.println("Veuillez entrez le pseudo du deuxième joueur:");
-                String Pseudo2 = scanner.next();
-                System.out.println("Bienvenue " + Pseudo1 + " Bienvenue aussi " + Pseudo2);
-                break;
+                case "1":
+                    System.out.println("Play");
+                    System.out.println("Please enter the nickname of the first player:");
+                    String Pseudo1 = scanner.next();
+                    System.out.println("Please enter the nickname of the Second player:");
+                    String Pseudo2 = scanner.next();
+                    System.out.println("Welcome " + Pseudo1 + " Welcome too " + Pseudo2);
+                    break;
+                case "2":
+                    System.out.println(" In this game, players take turns moving their pawn one square either vertically or horizontally and then destroy a square on the board.\n The last player able to make a move wins.\n Constraints include not being able to destroy an occupied square, occupy a destroyed or already occupied square.\n A player unable to move during their turn is declared the loser.\n Winning a game earns a player 5 points, while losing deducts 2 points.");
+                    break;
 
-            case "2":
-                System.out.println(" In this game, players take turns moving their pawn one square either vertically or horizontally and then destroy a square on the board.\n The last player able to make a move wins.\n Constraints include not being able to destroy an occupied square, occupy a destroyed or already occupied square.\n A player unable to move during their turn is declared the loser.\n Winning a game earns a player 5 points, while losing deducts 2 points.");
-                break;
-
-            case "3":
-                System.out.println("Goodbye bro");
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Incorrect choice");
-                break;
-        }
+                case "3":
+                    System.out.println("Welcome to the Scoreboard");
+                    ScoreBoard score = new ScoreBoard();
+                    score.displayScoresDesc();
+                    System.out.println("\n" + "The score in ascending order");
+                    score.displayScoresAsc();
+                    System.out.println("\n" + "The score In descending order");
+                    score.displayScoresDesc();
+                    break;
+                case "4":
+                    System.out.println("Goodbye bro");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Incorrect choice");
+                    break;
+            }
         }
         int playerNumber = 0;
         boolean validInput = false;

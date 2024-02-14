@@ -1,6 +1,9 @@
 package org.codingfactory;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.util.Random;
 
 
 public class Main {
@@ -55,7 +58,70 @@ public class Main {
         }
 
         Game game = new Game(playerNumber);
+        ArrayList<Player> Player = new ArrayList<>();
+        String direction = new String("");
+        int destroyLine = 0;
+        int destroyColumn = 0;
+
+        //choose the starter player with a random number
+        Random r = new Random();
+        int randomPlayer = r.nextInt(playerNumber-1);
+        game.currentPlayer = randomPlayer;
         game.displayBoard();
-        scanner.close();
+        while (game.loosers.size() < playerNumber) {
+            Player p = game.players.get(game.currentPlayer);
+            System.out.println("Choose your direction, "+p.pseudo+" ! (UP/DOWN/LEFT/RIGHT)");
+            direction = scanner.next();
+
+            switch (direction) {
+                case "UP":
+                    if(p.y>0 && game.board[p.y-1][p.x] == false) {
+                        p.y--;
+
+                    }
+                    else{
+                        System.out.println("Cannot move up : tile occupied, deleted or out of bounds.");
+                    }
+                    break;
+
+                case "DOWN":
+                    if(p.x<game.dimY-1 && game.board[p.x][p.y + 1] == false) {
+                            p.y++;
+                    }
+                    else{
+                        System.out.println("Cannot move down : tile occupied, deleted or out of bounds.");
+                    }
+                    break;
+
+                case "LEFT":
+                    if(p.x>0 && game.board[p.x - 1][p.y] == false) {
+                            p.x--;
+                        }
+                    else{
+                        System.out.println("Cannot move left : tile occupied, deleted or out of bounds.");
+                    }
+                    break;
+
+                case "RIGHT":
+                    if(p.x<game.dimX-1 && game.board[p.x + 1][p.y] == false) {
+                            p.x++;
+                    }
+                    else{
+                        System.out.println("Cannot move right : tile occupied, deleted or out of bounds.");
+                    }
+                    break;
+            }
+
+            //TODO: Destroy a tile
+            System.out.println("Destroy a tile !");
+            System.out.println("Input the line.");
+            destroyLine = scanner.nextInt();
+            System.out.println("Input the column");
+            destroyColumn = scanner.nextInt();
+            game.board[destroyLine][destroyColumn] = true;
+            game.displayBoard();
+        }
+
+
     }
 }

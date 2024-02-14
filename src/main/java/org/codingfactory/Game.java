@@ -22,7 +22,7 @@ public class Game {
             this.players.add(new Player(pseudo[i], 3+i, 5));
         }
 
-        this.board = new boolean [10][11];
+        this.board = new boolean [11][10];
     }
     public void displayBoard() {
         for (int j = 0; j < dimY; j++){
@@ -36,9 +36,16 @@ public class Game {
                         break;
                     }
                 }
-                if (!playerFound) {
+                if (!playerFound){
+                    if (board[j][i] == false) {
                     System.out.print("- ");
+                    }
+                    else{
+                    System.out.print("X ");
                 }
+
+                }
+
             }
             System.out.println();
         }

@@ -83,12 +83,10 @@ public class Main {
                         System.out.println("Cannot move up : tile occupied, deleted or out of bounds.");
                     }
                     break;
-/*
+
                 case "DOWN":
-                    if(playerStaty<game.dimY-1) {
-                        if (game.board[playerStatx][playerStaty + 1] == false) {
-                            p.x++;
-                        }
+                    if(p.x<game.dimY-1 && game.board[p.x][p.y + 1] == false) {
+                            p.y++;
                     }
                     else{
                         System.out.println("Cannot move down : tile occupied, deleted or out of bounds.");
@@ -96,27 +94,22 @@ public class Main {
                     break;
 
                 case "LEFT":
-                    if(playerStatx>0) {
-                        if (game.board[playerStatx - 1][playerStaty] == false) {
+                    if(p.x>0 && game.board[p.x - 1][p.y] == false) {
                             p.x--;
                         }
-                    }
                     else{
                         System.out.println("Cannot move left : tile occupied, deleted or out of bounds.");
                     }
                     break;
 
                 case "RIGHT":
-                    if(playerStatx<game.dimX-1) {
-                        if (game.board[playerStatx + 1][playerStaty] == false) {
+                    if(p.x<game.dimX-1 && game.board[p.x + 1][p.y] == false) {
                             p.x++;
-                        }
                     }
                     else{
                         System.out.println("Cannot move right : tile occupied, deleted or out of bounds.");
                     }
                     break;
-                    */
             }
 
             //TODO: Destroy a tile

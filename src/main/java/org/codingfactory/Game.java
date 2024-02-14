@@ -3,10 +3,12 @@ package org.codingfactory;
 import java.util.*;
 public class Game {
     ArrayList<Player> players;
-    int board[][];
-
+    boolean board[][];
+    String currentPlayer;
+    ArrayList<Player> loosers;
     public Game(int nPlayers) {
         this.players = new ArrayList<>();
+        this.loosers = new ArrayList<>();
         String pseudo[] = new String[4];
         pseudo[0] = "Firmin";
         pseudo[1] = "Eudes";
@@ -17,7 +19,7 @@ public class Game {
             this.players.add(new Player(pseudo[i], 3+i, 5));
         }
 
-        this.board = new int[10][11];
+        this.board = new boolean [10][11];
     }
     public void displayBoard() {
         for (int i = 0; i < board.length; i++) {

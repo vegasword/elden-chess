@@ -1,6 +1,9 @@
 package org.codingfactory;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import java.util.Random;
 
 
 public class Main {
@@ -55,7 +58,29 @@ public class Main {
         }
 
         Game game = new Game(playerNumber);
+        ArrayList<Player> Player = new ArrayList<>();
+        Random r = new Random();
+        String direction = new String("");
+        String moveValue;
+        int randomPlayer = r.nextInt(playerNumber-1);
+        Player p = game.players.get(randomPlayer);
+        game.currentPlayer = p.getPseudo();
+        while (game.loosers.size()<playerNumber-1){
+            System.out.println("choose the direction to move. H: horizontal V: vertical");
+            while ((direction !="H") && (direction !="V")) {
+                System.out.println("please enter a valid direction");
+                direction = scanner.next();
+            }
+            System.out.println("choose a value . -1 : left or down 1 : up or right");
+            while ((!moveValue.equals("-1")) && (!moveValue.equals("1")){
+                System.out.println("please enter a valid value");
+                moveValue = scanner.next();
+            }
+
+
+        }
         game.displayBoard();
         scanner.close();
+
     }
 }

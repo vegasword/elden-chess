@@ -33,7 +33,7 @@ public class SafeInput {
         int response = nextInt(message);
         while (response < min || response > max) {
             System.out.println("Number must be between " + min + " and " + max + " inclusive.");
-            response =nextInt(message);
+            return nextIntRange(message, min, max);
         }
         return response;
     }
@@ -50,7 +50,7 @@ public class SafeInput {
 
         String response = scanner.next();
         while (!expected.contains(response)) {
-            nextStringExpect(message, expected);
+            return nextStringExpect(message, expected);
         }
         return response;
     }

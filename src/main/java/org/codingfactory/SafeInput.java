@@ -43,11 +43,12 @@ public class SafeInput {
         return scanner.next();
     }
 
-    public String nextStringExpect(String message, List<String> expected) {
-        System.out.print(message + " ( ");
-        for (var e : expected) System.out.print(e + " ");
-        System.out.print(" )\n");
-
+    public String nextStringExpect(String message,  List<String> expected) {
+        System.out.print(message + " ");
+        int expectedSize = expected.size();
+        for (int i = 0; i < expectedSize; ++i) {
+            System.out.print(expected.get(i) + ((i+1 < expectedSize) ? "/" : " "));
+        }
         String response = scanner.next();
         while (!expected.contains(response)) {
             return nextStringExpect(message, expected);

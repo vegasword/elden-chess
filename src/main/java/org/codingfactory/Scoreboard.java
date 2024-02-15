@@ -1,5 +1,6 @@
 package org.codingfactory;
 
+import java.io.*;
 import java.util.*;
 
 public class Scoreboard {
@@ -14,6 +15,28 @@ public class Scoreboard {
      */
     public boolean isEmpty() {
         return scores.isEmpty();
+    }
+
+    /**
+     * Save the scores hashmap in a binary file
+     */
+    public void save() {
+        try (FileOutputStream fos = new FileOutputStream("scores.bin");
+             ObjectOutputStream oos = new ObjectOutputStream(fos))
+        {
+            oos.writeObject(scores);
+        } catch (IOException e) {
+            System.err.println("An error occurred when saving the scores: " + e.getMessage());
+        }
+    }
+
+    public void load() {
+        try (FileInputStream fis = new FileInputStream("scores.bin");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            scores = (Map<String, Integer>)ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("An error occurred when loading the scores: " + e.getMessage());
+        }
     }
 
     /**

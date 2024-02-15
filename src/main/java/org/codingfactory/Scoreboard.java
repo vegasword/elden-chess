@@ -1,3 +1,4 @@
+//TODO: Fix display functions
 package org.codingfactory;
 
 import java.util.*;
@@ -21,7 +22,7 @@ public class Scoreboard {
         sortedScores.sort(Map.Entry.comparingByValue());
 
         // Display the top 10
-        var topScores = sortedScores.subList(0, 9);
+        var topScores = sortedScores.subList(0, Math.min(sortedScores.size(), 9));
         for (var score : topScores) {
             System.out.println("Pseudo : " + score.getKey() + ", Score : " + score.getValue());
         }
@@ -36,7 +37,7 @@ public class Scoreboard {
         sortedScores.sort(Collections.reverseOrder(Map.Entry.comparingByValue()));
 
         // Display the top 10
-        var topScores = sortedScores.subList(0, 9);
+        var topScores = sortedScores.subList(0, Math.min(sortedScores.size(), 9));
         for (var score : topScores) {
             System.out.println("Pseudo : " + score.getKey() + ", Score : " + score.getValue());
         }
@@ -47,8 +48,8 @@ public class Scoreboard {
      */
     public void displayScores() {
         var scores = new ArrayList<>(this.scores.entrySet());
-        scores.subList(0, 10);
-        for (var score : scores) {
+        var topScores = scores.subList(0, Math.min(scores.size(), 9));
+        for (var score : topScores) {
             System.out.println("Pseudo : " + score.getKey() + ", Score : " + score.getValue());
         }
     }

@@ -55,15 +55,4 @@ public class SafeInput {
         }
         return response;
     }
-
-    public void clearScreen () {
-        String systemInfo = System.getProperty("os.name");
-        if (systemInfo.contains("Windows")) {
-            try {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } catch (Exception exception) { }
-        } else if (systemInfo.contains("Mac")) {
-            System.out.print("\033[H\033[2J");
-        }
-    }
 }

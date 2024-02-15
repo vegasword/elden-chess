@@ -18,7 +18,6 @@ public class Game {
      * @return Returns the choice
      */
     public int displayMainMenu() {
-        input.clearScreen();
         return input.nextIntRange(
             "# DESTRUCT CHESS #\n" +
             " 1: Play\n" +
@@ -47,8 +46,6 @@ public class Game {
            input.pause();
            return;
         }
-
-        input.clearScreen();
 
         int choice = input.nextIntRange(
             "# SCOREBOARD #\n" +
@@ -145,14 +142,6 @@ public class Game {
             }
             System.out.println();
         }
-    }
-
-    /**
-     * Clear the screen and display the gameboard.
-     */
-    private void refreshDisplay() {
-        input.clearScreen();
-        displayGameboard();
     }
 
     /**
@@ -288,12 +277,12 @@ public class Game {
     public void update() {
         while (loosers.size() < playersCount - 1) { // Break the game loop when there is only one player remaining
             // Move phase
-            refreshDisplay();
+            displayGameboard();
             movePlayer();
             checkLoses();
 
             // Destroy tile phase
-            refreshDisplay();
+            displayGameboard();
             destroyTile();
             checkLoses();
 

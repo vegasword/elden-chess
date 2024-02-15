@@ -1,5 +1,6 @@
 package org.codingfactory;
 
+import java.io.*;
 import java.util.*;
 
 public class Game {
@@ -34,6 +35,15 @@ public class Game {
     public void displayScoreboard() {
         if (scoreboard.isEmpty()) {
            System.out.println("There are not yet scores in the scoreboard !");
+            String response = input.nextStringExpect("Do you want to try to load the latest scoreboard from previous session ?", List.of("y", "n"));
+            if (response.equals("y")) {
+               try (FileInputStream fis = new FileInputStream("scores.bin");) {
+                   scoreboard.load();
+                   System.out.println("Scores loaded successfully !");
+               } catch (IOException e) {
+                   System.out.println("Well I can't find any saved scoreboard... You might ask yourself \"Quoi ?\" and my answer to that question is \"Feur\" !");
+               }
+            }
            input.pause();
            return;
         }
@@ -46,7 +56,7 @@ public class Game {
             " 2: Top 10 best\n" +
             " 3: Top 10 worst\n" +
             " 4: Back to main menu\n",
-            1, 4
+            1,4
         );
 
         switch (choice) {
@@ -149,45 +159,49 @@ public class Game {
      * Ask the player to move in a specific direction.
      */
     private void movePlayer() {
-        Player player = players.get(currentPlayer);
+        Player p = players.get(currentPlayer);
         List expectedDirections = List.of("UP", "DOWN", "LEFT", "RIGHT");
         String direction = new String();
 
-        while (!expectedDirections.contains(direction)) {
-            direction = input.nextStringExpect("Choose your direction " + player.pseudo + " !", expectedDirections);
+        while (true) {
+            while (!expectedDirections.contains(direction)) {
+                direction = input.nextStringExpect("Choose your direction " + p.pseudo + " !", expectedDirections);
+            }
+
             switch (direction) {
                 case "UP": {
-                    if (player.y-1 >= 0 && !gameboard[player.y-1][player.x]) {
-                        gameboard[player.y][player.x] = false;
-                        gameboard[--player.y][player.x] = true;
+                    if (p.y-1 >= 0 && !gameboard[p.y-1][p.x]) {
+                        gameboard[p.y][p.x] = false;
+                        gameboard[--p.y][p.x] = true;
                         return;
                     }
                 } break;
 
                 case "DOWN": {
-                    if (player.y+1 < dimY && !gameboard[player.y+1][player.x]) {
-                        gameboard[player.y][player.x] = false;
-                        gameboard[++player.y][player.x] = true;
+                    if (p.y+1 < dimY && !gameboard[p.y+1][p.x]) {
+                        gameboard[p.y][p.x] = false;
+                        gameboard[++p.y][p.x] = true;
                         return;
                     }
                 } break;
 
                 case "LEFT": {
-                    if (player.x-1 >= 0 && !gameboard[player.y][player.x-1]) {
-                        gameboard[player.y][player.x] = false;
-                        gameboard[player.y][--player.x] = true;
+                    if (p.x-1 >= 0 && !gameboard[p.y][p.x-1]) {
+                        gameboard[p.y][p.x] = false;
+                        gameboard[p.y][--p.x] = true;
                         return;
                     }
                 } break;
 
                 case "RIGHT": {
-                    if (player.x+1 < dimX && !gameboard[player.y][player.x+1]) {
-                        gameboard[player.y][player.x] = false;
-                        gameboard[player.y][++player.x] = true;
+                    if (p.x+1 < dimX && !gameboard[p.y][p.x+1]) {
+                        gameboard[p.y][p.x] = false;
+                        gameboard[p.y][++p.x] = true;
                         return;
                     }
                 } break;
             }
+            direction = "";
             System.out.println("You can't move there !");
         }
     }
@@ -260,6 +274,7 @@ public class Game {
         // Scoreboard update
         scoreboard.updateScore(winner.pseudo, true);
         for (Player looser : loosers) scoreboard.updateScore(looser.pseudo, false);
+        scoreboard.save();
 
         // Reset game data
         gameboard = null;

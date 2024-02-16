@@ -19,12 +19,12 @@ public class Game {
      */
     public int displayMainMenu() {
         return input.nextIntRange(
-            "# DESTRUCT CHESS #\n" +
+            "# ELDEN CHESS #\n" +
             " 1: Play\n" +
             " 2: Rules\n" +
             " 3: Scoreboards\n" +
             " 4: Quit\n",
-            1, 4
+            1, 5
         );
     }
 
@@ -131,13 +131,19 @@ public class Game {
      * to the tile state and the players positions.
      */
     private void displayGameboard() {
+        System.out.print("   ");
+        for (int x = 1; x <= Math.min(dimX, 9); x++) System.out.print(x + " ");
+        if (dimX > 9) System.out.print("...");
+        System.out.println();
+
         for (int y = 0; y < dimY; y++){
+            System.out.print((y < 9 ? " " : "") + (y+1) + " ");
             for (int x = 0; x < dimX; x++) {
                 Player player = isPlayerThere(x, y);
                 if (player != null) {
                     System.out.print(player.pseudo.charAt(0) + " ");
                 } else {
-                    System.out.print(gameboard[y][x] ? "X " : "█ ");
+                    System.out.print(gameboard[y][x] ? "░ " : "█ ");
                 }
             }
             System.out.println();
@@ -296,6 +302,26 @@ public class Game {
                 if (currentPlayer == playersCount) currentPlayer = 0;
             }
         }
+        displayGameboard();
         endGame();
+    }
+
+    public void displayEndGame() {
+        System.out.print("" +
+                "⣿⣿⠿⠿⠿⠿⣿⣷⣂⠄⠄⠄⠄⠄⠄⠈⢷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                "⣷⡾⠯⠉⠉⠉⠉⠚⠑⠄⡀⠄⠄⠄⠄⠄⠈⠻⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                "⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⡀⠄⠄⠄⠄⠄⠄⠄⠄⠉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                "⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⠎⠄⠄⣀⡀⠄⠄⠄⠄⠄⠄⠄⠘⠋⠉⠉⠉⠉⠭⠿⣿\n" +
+                "⡀⠄⠄⠄⠄⠄⠄⠄⠄⡇⠄⣠⣾⣳⠁⠄⠄⢺⡆⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄\n" +
+                "⣿⣷⡦⠄⠄⠄⠄⠄⢠⠃⢰⣿⣯⣿⡁⢔⡒⣶⣯⡄⢀⢄⡄⠄⠄⠄⠄⠄⣀⣤⣶\n" +
+                "⠓⠄⠄⠄⠄⠄⠸⠄⢀⣤⢘⣿⣿⣷⣷⣿⠛⣾⣿⣿⣆⠾⣷⠄⠄⠄⠄⢀⣀⣼⣿\n" +
+                "⠄⠄⠄⠄⠄⠄⠄⠑⢘⣿⢰⡟⣿⣿⣷⣫⣭⣿⣾⣿⣿⣴⠏⠄⠄⢀⣺⣿⣿⣿⣿\n" +
+                "⣿⣿⣿⣿⣷⠶⠄⠄⠄⠹⣮⣹⡘⠛⠿⣫⣾⣿⣿⣿⡇⠑⢤⣶⣿⣿⣿⣿⣿⣿⣿\n" +
+                "⣿⣿⣿⣯⣤⣤⣤⣤⣀⣀⡹⣿⣿⣷⣯⣽⣿⣿⡿⣋⣴⡀⠈⣿⣿⣿⣿⣿⣿⣿⣿\n" +
+                "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣝⡻⢿⣿⡿⠋⡒⣾⣿⣧⢰⢿⣿⣿⣿⣿⣿⣿⣿\n" +
+                "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⣏⣟⣼⢋⡾⣿⣿⣿⣘⣔⠙⠿⠿⠿⣿⣿⣿\n" +
+                "⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⣛⡵⣻⠿⠟⠁⠛⠰⠿⢿⠿⡛⠉⠄⠄⢀⠄⠉⠉⢉\n" +
+                "⣿⣿⣿⣿⡿⢟⠩⠉⣠⣴⣶⢆⣴⡶⠿⠟⠛⠋⠉⠩⠄⠉⢀⠠⠂⠈⠄⠐⠄⠄⠄\n"
+        );
     }
 }

@@ -232,6 +232,11 @@ public class Game {
             boolean leftBound   = p.x - 1 < 0;
             boolean rightBound  = p.x + 1 >= dimX;
 
+            boolean upperLeftCorner = upperBound && leftBound;
+            boolean upperRightCorner = upperBound && rightBound;
+            boolean downerLeftCorner = downerBound && leftBound;
+            boolean downerRightCorner = downerBound && rightBound;
+
             boolean up    = !upperBound  && gameboard[p.y-1][p.x];
             boolean down  = !downerBound && gameboard[p.y+1][p.x];
             boolean left  = !leftBound   && gameboard[p.y][p.x-1];
@@ -244,7 +249,11 @@ public class Game {
                     (upperBound && down && left && right) ||
                     (up && downerBound && left && right) ||
                     (up && down && leftBound && right) ||
-                    (up && down && left && rightBound)
+                    (up && down && left && rightBound)  ||
+                    (upperLeftCorner && down && right) ||
+                    (upperRightCorner && down && left) ||
+                    (downerLeftCorner && up && right) ||
+                    (downerRightCorner && up && left)
                 );
 
             if (isBlocked)
